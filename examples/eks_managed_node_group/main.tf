@@ -1,3 +1,52 @@
+resource "aws_security_group" "example_dynamic" {
+  name        = "example"
+  description = "Example SG"
+
+  vpc_id = module.vpc.vpc_id
+}
+
+data "aws_iam_policy_document" "policy_doc" {
+  # CloudWatch Container Insights permissions
+  # copied from arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+  statement {
+    sid = "cloudwatchput"
+
+    effect = "Allow"
+    actions = [
+      "cloudwatch:PutMetricData",
+      "ec2:DescribeVolumes",
+      "ec2:DescribeTags",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams",
+      "logs:DescribeLogGroups",
+      "logs:CreateLogStream",
+      "logs:CreateLogGroup",
+    ]
+    resources = [
+      "*",
+    ]
+  }
+  statement {
+    sid = "cloudwatchgetparam"
+
+    effect = "Allow"
+    actions = [
+      "ssm:GetParameter",
+    ]
+    resources = [
+      "arn:aws:ssm:*:*:parameter/AmazonCloudWatch-*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "workers_extra" {
+  name        = "eks-workers-extra"
+  description = "Extra policy example"
+
+  policy = data.aws_iam_policy_document.policy_doc.json
+}
+
+
 provider "aws" {
   region = local.region
 }
@@ -202,7 +251,8 @@ module "eks" {
         Purpose = "Protector of the kubelet"
       }
       iam_role_additional_policies = [
-        "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+        "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+        aws_iam_policy.workers_extra.arn, # BUG: add a dynamic resource
       ]
 
       create_security_group          = true
@@ -224,7 +274,7 @@ module "eks" {
           from_port                     = 53
           to_port                       = 53
           type                          = "egress"
-          source_cluster_security_group = true # bit of reflection lookup
+          source_security_group_id = aws_security_group.example_dynamic.id # BUG: add a dynamic resource
         }
       }
       security_group_tags = {
