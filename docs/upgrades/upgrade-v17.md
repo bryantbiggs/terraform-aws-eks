@@ -1,6 +1,4 @@
-# How to handle the terraform-aws-eks module upgrade
-
-## Upgrade module to v17.0.0 for Managed Node Groups
+# Upgrade from v16.x to v17.x
 
 In this release, we now decided to remove random_pet resources in Managed Node Groups (MNG). Those were used to recreate MNG if something changed. But they were causing a lot of issues. To upgrade the module without recreating your MNG, you will need to explicitly reuse their previous name and set them in your MNG `name` argument.
 

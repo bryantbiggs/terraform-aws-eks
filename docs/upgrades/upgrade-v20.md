@@ -222,10 +222,10 @@ Changing the `authentication_mode` is a one-way decision. See [announcement blog
 
 > Switching authentication modes on an existing cluster is a one-way operation. You can switch from CONFIG_MAP to API_AND_CONFIG_MAP. You can then switch from API_AND_CONFIG_MAP to API. You cannot revert these operations in the opposite direction. Meaning you cannot switch back to CONFIG_MAP or API_AND_CONFIG_MAP from API. And you cannot switch back to CONFIG_MAP from API_AND_CONFIG_MAP.
 
-> [!IMPORTANT]
-> If migrating to cluster access entries and you will NOT have any entries that remain in the `aws-auth` ConfigMap, you do not need to remove the configmap from the statefile. You can simply follow the migration guide and once access entries have been created, you can let Terraform remove/delete the `aws-auth` ConfigMap.
->
-> If you WILL have entries that remain in the `aws-auth` ConfigMap, then you will need to remove the ConfigMap resources from the statefile to avoid any disruptions. When you add the new `aws-auth` sub-module and apply the changes, the sub-module will upsert the ConfigMap on the cluster. Provided the necessary entries are defined in that sub-module's definition, it will "re-adopt" the ConfigMap under Terraform's control.
+!!! warning
+      If migrating to cluster access entries and you will NOT have any entries that remain in the `aws-auth` ConfigMap, you do not need to remove the configmap from the statefile. You can simply follow the migration guide and once access entries have been created, you can let Terraform remove/delete the `aws-auth` ConfigMap.
+
+      If you WILL have entries that remain in the `aws-auth` ConfigMap, then you will need to remove the ConfigMap resources from the statefile to avoid any disruptions. When you add the new `aws-auth` sub-module and apply the changes, the sub-module will upsert the ConfigMap on the cluster. Provided the necessary entries are defined in that sub-module's definition, it will "re-adopt" the ConfigMap under Terraform's control.
 
 ### authentication_mode = "CONFIG_MAP"
 
@@ -238,10 +238,10 @@ terraform state rm 'module.eks.kubernetes_config_map.aws_auth[0]' # include if T
 
 Once the configmap has been removed from the statefile, you can add the new `aws-auth` sub-module and copy the relevant definitions from the EKS module over to the new `aws-auth` sub-module definition (see before after diff above).
 
-> [!CAUTION]
-> You will need to add entries to the `aws-auth` sub-module for any IAM roles used by node groups and/or Fargate profiles - the module no longer handles this in the background on behalf of users.
->
-> When you apply the changes with the new sub-module, the configmap in the cluster will get updated with the contents provided in the sub-module definition, so please be sure all of the necessary entries are added before applying the changes.
+!!! warning
+      You will need to add entries to the `aws-auth` sub-module for any IAM roles used by node groups and/or Fargate profiles - the module no longer handles this in the background on behalf of users.
+
+      When you apply the changes with the new sub-module, the configmap in the cluster will get updated with the contents provided in the sub-module definition, so please be sure all of the necessary entries are added before applying the changes.
 
 ### authentication_mode = "API_AND_CONFIG_MAP"
 
@@ -249,8 +249,8 @@ When using `authentication_mode = "API_AND_CONFIG_MAP"` and there are entries th
 
 Once the `authentication_mode` has been updated, next you will need to remove the configmap from the statefile to avoid any disruptions:
 
-> [!NOTE]
-> This is only required if there are entries that will remain in the `aws-auth` ConfigMap after migrating. Otherwise, you can skip this step and let Terraform destroy the ConfigMap.
+!!! note
+      This is only required if there are entries that will remain in the `aws-auth` ConfigMap after migrating. Otherwise, you can skip this step and let Terraform destroy the ConfigMap.
 
 ```sh
 terraform state rm 'module.eks.kubernetes_config_map_v1_data.aws_auth[0]'

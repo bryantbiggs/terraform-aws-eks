@@ -287,6 +287,6 @@ Returns (at the time of writing):
 }
 ```
 
-> [!NOTE]
-> The available configuration values will vary between add-on versions,
-> typically more configuration values will be added in later versions as functionality is enabled by EKS.
+!!! note
+    The available configuration values will vary between add-on versions,
+    typically more configuration values will be added in later versions as functionality is enabled by EKS.

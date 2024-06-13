@@ -1,3 +1,11 @@
 nav:
   - Overview: index.md
-  - Local Develpment: local.md
+  - FAQ: faq.md
+  - Add-ons: add-ons.md
+  - Compute: compute
+  - Network: network
+  - Storage: storage.md
+  - Security: security
+  - User Data: user-data.md
+  - Upgrades: upgrades
+  - Local Development: local.md
