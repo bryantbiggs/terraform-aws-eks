@@ -5,9 +5,9 @@
 To provision the provided configurations you need to execute:
 
 ```bash
-$ terraform init
-$ terraform plan
-$ terraform apply --auto-approve
+terraform init
+terraform plan
+terraform apply --auto-approve
 ```
 
 Note that this test may create resources which cost money. Run `terraform destroy` when you don't need these resources.

@@ -1,14 +1,13 @@
 # Karpenter Example
 
-
 ## Usage
 
 To provision the provided configurations you need to execute:
 
 ```bash
-$ terraform init
-$ terraform plan
-$ terraform apply --auto-approve
+terraform init
+terraform plan
+terraform apply --auto-approve
 ```
 
 Once the cluster is up and running, you can check that Karpenter is functioning as intended with the following command:

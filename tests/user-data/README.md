@@ -7,9 +7,9 @@ Configuration in this directory render various user data outputs used for testin
 To provision the provided configurations you need to execute:
 
 ```bash
-$ terraform init
-$ terraform plan
-$ terraform apply --auto-approve
+terraform init
+terraform plan
+terraform apply --auto-approve
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

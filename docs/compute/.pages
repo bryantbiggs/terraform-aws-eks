@@ -1,5 +1,5 @@
 nav:
-  - Overview: index.md
-  - EKS managed: eks-managed.md
-  - Self-managed: self-managed.md
+  - EKS managed node group: eks-managed.md
+  - Self-managed node group: self-managed.md
   - Fargate Profile: fargate-profile.md
+  - Karpener: karpenter.md

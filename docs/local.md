@@ -10,7 +10,6 @@ In order to run the documentation site locally, you will need to have the follow
     - `mkdocs-material`
     - `mkdocs-include-markdown-plugin`
     - `mkdocs-awesome-pages-plugin`
-    - `mkdocs-macros-plugin`
 
 To run the documentation site locally, run the following command from the root of the repository:
 
