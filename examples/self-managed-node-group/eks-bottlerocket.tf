@@ -2,7 +2,7 @@ module "eks_bottlerocket" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name    = "${local.name}-bottlerocket"
+  cluster_name    = "ex-self-mng-bottlerocket"
   cluster_version = "1.30"
 
   # EKS Addons
@@ -27,21 +27,15 @@ module "eks_bottlerocket" {
       # https://github.com/bryantbiggs/eks-desired-size-hack
       desired_size = 2
 
-      # This is not required - demonstrates how to pass additional configuration
+      # Not required - demonstrating how to pass configuration
       # Ref https://bottlerocket.dev/en/os/1.19.x/api/settings/
       bootstrap_extra_args = <<-EOT
-        # The admin host container provides SSH access and runs with "superpowers".
-        # It is disabled by default, but can be disabled explicitly.
         [settings.host-containers.admin]
         enabled = false
 
-        # The control host container provides out-of-band access via SSM.
-        # It is enabled by default, and can be disabled if you do not expect to use SSM.
-        # This could leave you with no way to access the API and change settings on an existing node!
         [settings.host-containers.control]
         enabled = true
 
-        # extra args added
         [settings.kernel]
         lockdown = "integrity"
       EOT

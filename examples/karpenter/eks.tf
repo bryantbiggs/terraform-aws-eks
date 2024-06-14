@@ -1,12 +1,8 @@
-################################################################################
-# EKS Module
-################################################################################
-
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name    = local.name
+  cluster_name    = "ex-karpenter"
   cluster_version = "1.30"
 
   # Gives Terraform identity admin access to cluster which will

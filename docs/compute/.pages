@@ -1,5 +1,5 @@
 nav:
   - Overview: index.md
   - EKS managed: eks-managed.md
-  - Self-managed: self-manged.md
+  - Self-managed: self-managed.md
   - Fargate Profile: fargate-profile.md

@@ -2,7 +2,7 @@ module "eks_al2023" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
 
-  cluster_name    = "${local.name}-al2023"
+  cluster_name    = "ex-self-mng-al2023"
   cluster_version = "1.30"
 
   # EKS Addons
@@ -27,7 +27,7 @@ module "eks_al2023" {
       # https://github.com/bryantbiggs/eks-desired-size-hack
       desired_size = 2
 
-      # This is not required - demonstrates how to pass additional configuration to nodeadm
+      # Not required - demonstrating how to pass configuration to nodeadm
       # Ref https://awslabs.github.io/amazon-eks-ami/nodeadm/doc/api/
       cloudinit_pre_nodeadm = [
         {
