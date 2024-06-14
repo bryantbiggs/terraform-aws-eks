@@ -36,11 +36,12 @@ theme:
     - json
 
 plugins:
+  - awesome-pages
   - include-markdown
+  - macros
   - search:
       lang:
         - en
-  - awesome-pages
 
 extra:
   version:

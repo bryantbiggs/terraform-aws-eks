@@ -1,6 +1,5 @@
 nav:
   - Overview: index.md
-  - FAQ: faq.md
   - Add-ons: add-ons.md
   - Compute: compute
   - Network: network
@@ -8,4 +7,5 @@ nav:
   - Security: security
   - User Data: user-data.md
   - Upgrades: upgrades
+  - FAQ: faq.md
   - Local Development: local.md
