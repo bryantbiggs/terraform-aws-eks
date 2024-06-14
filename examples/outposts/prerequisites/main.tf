@@ -1,10 +1,11 @@
 provider "aws" {
-  region = var.region
+  region = local.region
 }
 
 locals {
   name = "ex-${basename(path.cwd)}"
 
+  region            = "us-west-2"
   terraform_version = "1.3.6"
 
   outpost_arn   = element(tolist(data.aws_outposts_outposts.this.arns), 0)
@@ -104,6 +105,11 @@ module "bastion_security_group" {
   ]
 
   tags = local.tags
+}
+
+output "ssm_start_session" {
+  description = "SSM start session command to connect to remote host created"
+  value       = "aws ssm start-session --region ${local.region} --target ${module.ssm_bastion_ec2.id}"
 }
 
 ################################################################################
