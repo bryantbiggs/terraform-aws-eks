@@ -10,7 +10,7 @@ $ terraform plan
 $ terraform apply --auto-approve
 ```
 
-Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
+Note that this test may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
