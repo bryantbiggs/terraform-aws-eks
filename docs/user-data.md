@@ -1,6 +1,6 @@
 # User Data & Bootstrapping
 
-Users can see the various methods of using and providing user data through the [user data examples](https://github.com/terraform-aws-modules/terraform-aws-eks/tree/master/examples/user_data) as well more detailed information on the design and possible configurations via the [user data module itself](https://github.com/terraform-aws-modules/terraform-aws-eks/tree/master/modules/_user_data)
+Users can see the various methods of using and providing user data through the [user data examples](https://github.com/terraform-aws-modules/terraform-aws-eks/tree/master/examples/user-data) as well more detailed information on the design and possible configurations via the [user data module itself](https://github.com/terraform-aws-modules/terraform-aws-eks/tree/master/modules/_user_data)
 
 ## Summary
 
@@ -29,16 +29,19 @@ When using an EKS managed node group, users have 2 primary routes for interactin
      ```
 
 2. If a custom AMI is used, then per the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html#launch-template-custom-ami), users will need to supply the necessary user data to bootstrap and register nodes with the cluster when launched. There are two routes to facilitate this bootstrapping process:
-   - If the AMI used is a derivative of the [AWS EKS Optimized AMI ](https://github.com/awslabs/amazon-eks-ami), users can opt in to using a template provided by the module that provides the minimum necessary configuration to bootstrap the node when launched:
+   - If the AMI used is a derivative of the [AWS EKS Optimized AMI](https://github.com/awslabs/amazon-eks-ami), users can opt in to using a template provided by the module that provides the minimum necessary configuration to bootstrap the node when launched:
      - Users can use the following variables to facilitate this process:
+
        ```hcl
        enable_bootstrap_user_data = true # to opt in to using the module supplied bootstrap user data template
        pre_bootstrap_user_data    = "..."
        bootstrap_extra_args       = "..."
        post_bootstrap_user_data   = "..."
        ```
+
    - If the AMI is **NOT** an AWS EKS Optimized AMI derivative, or if users wish to have more control over the user data that is supplied to the node when launched, users have the ability to supply their own user data template that will be rendered instead of the module supplied template. Note - only the variables that are supplied to the `templatefile()` for the respective AMI type are available for use in the supplied template, otherwise users will need to pre-render/pre-populate the template before supplying the final template to the module for rendering as user data.
      - Users can use the following variables to facilitate this process:
+
        ```hcl
        user_data_template_path  = "./your/user_data.sh" # user supplied bootstrap user data template
        pre_bootstrap_user_data  = "..."
@@ -53,27 +56,22 @@ When using an EKS managed node group, users have 2 primary routes for interactin
 
 Self managed node groups require users to provide the necessary bootstrap user data. Users can elect to use the user data template provided by the module for their respective AMI type or provide their own user data template for rendering by the module.
 
-- If the AMI used is a derivative of the [AWS EKS Optimized AMI ](https://github.com/awslabs/amazon-eks-ami), users can opt in to using a template provided by the module that provides the minimum necessary configuration to bootstrap the node when launched:
+- If the AMI used is a derivative of the [AWS EKS Optimized AMI](https://github.com/awslabs/amazon-eks-ami), users can opt in to using a template provided by the module that provides the minimum necessary configuration to bootstrap the node when launched:
   - Users can use the following variables to facilitate this process:
+
     ```hcl
     enable_bootstrap_user_data = true # to opt in to using the module supplied bootstrap user data template
     pre_bootstrap_user_data    = "..."
     bootstrap_extra_args       = "..."
     post_bootstrap_user_data   = "..."
     ```
+
   - If the AMI is **NOT** an AWS EKS Optimized AMI derivative, or if users wish to have more control over the user data that is supplied to the node when launched, users have the ability to supply their own user data template that will be rendered instead of the module supplied template. Note - only the variables that are supplied to the `templatefile()` for the respective AMI type are available for use in the supplied template, otherwise users will need to pre-render/pre-populate the template before supplying the final template to the module for rendering as user data.
     - Users can use the following variables to facilitate this process:
+
       ```hcl
       user_data_template_path  = "./your/user_data.sh" # user supplied bootstrap user data template
       pre_bootstrap_user_data  = "..."
       bootstrap_extra_args     = "..."
       post_bootstrap_user_data = "..."
       ```
-
-### Logic Diagram
-
-The rough flow of logic that is encapsulated within the `_user_data` module can be represented by the following diagram to better highlight the various manners in which user data can be populated.
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/terraform-aws-modules/terraform-aws-eks/master/.github/images/user_data.svg" alt="User Data" width="60%">
-</p>

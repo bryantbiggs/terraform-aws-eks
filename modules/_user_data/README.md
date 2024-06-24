@@ -2,7 +2,7 @@
 
 Configuration in this directory renders the appropriate user data for the given inputs. See [`docs/user_data.md`](https://github.com/terraform-aws-modules/terraform-aws-eks/blob/master/docs/user_data.md) for more info.
 
-See [`examples/user_data/`](https://github.com/terraform-aws-modules/terraform-aws-eks/tree/master/examples/user_data) for various examples using this module.
+See [`examples/user-data/`](https://github.com/terraform-aws-modules/terraform-aws-eks/tree/master/examples/user-data) for various examples using this module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

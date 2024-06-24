@@ -51,10 +51,7 @@ module "eks" {
       ami_type = "AL2_x86_64"
       ami_id   = "ami-0caf35bc73450c396"
 
-      # EKS managed node group will not append the bootstrap script when using
-      # a custom AMI. The `enable_bootstrap_user_data = true` adds it back in
-      # using the user data template provided by the module.
-      # Note: this assumes the AMI provided is an EKS AL2 optimized AMI
+      # This assumes the AMI provided is an EKS AL2 optimized AMI
       # derivative as identified by `ami_type = "AL2_x86_64"`
       enable_bootstrap_user_data = true
 
@@ -89,10 +86,7 @@ module "eks" {
       ami_type = "AL2023_x86_64_STANDARD"
       ami_id   = "ami-0caf35bc73450c396"
 
-      # EKS managed node group will not append the bootstrap script when using
-      # a custom AMI. The `enable_bootstrap_user_data = true` adds it back in
-      # using the user data template provided by the module.
-      # Note: this assumes the AMI provided is an EKS AL2 optimized AMI
+      # This assumes the AMI provided is an EKS AL2 optimized AMI
       # derivative as identified by `ami_type = "AL2023_x86_64_STANDARD"`
       enable_bootstrap_user_data = true
 
