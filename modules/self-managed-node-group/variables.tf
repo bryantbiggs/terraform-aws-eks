@@ -334,6 +334,12 @@ variable "enable_efa_support" {
   default     = false
 }
 
+variable "num_efa_interfaces" {
+  description = "Number of traditional `efa` Elastic Fabric Adapter (EFA) interfaces to create; remaining will be `efa-only` when `enable_efa_support = true`"
+  type        = number
+  default     = 2
+}
+
 variable "metadata_options" {
   description = "Customize the metadata options for the instance"
   type        = map(string)

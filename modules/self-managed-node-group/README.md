@@ -169,6 +169,7 @@ module "self_managed_node_group" {
 | <a name="input_mixed_instances_policy"></a> [mixed\_instances\_policy](#input\_mixed\_instances\_policy) | Configuration block containing settings to define launch targets for Auto Scaling groups | `any` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the Self managed Node Group | `string` | `""` | no |
 | <a name="input_network_interfaces"></a> [network\_interfaces](#input\_network\_interfaces) | Customize network interfaces to be attached at instance boot time | `list(any)` | `[]` | no |
+| <a name="input_num_efa_interfaces"></a> [num\_efa\_interfaces](#input\_num\_efa\_interfaces) | Number of traditional `efa` Elastic Fabric Adapter (EFA) interfaces to create; remaining will be `efa-only` when `enable_efa_support = true` | `number` | `2` | no |
 | <a name="input_placement"></a> [placement](#input\_placement) | The placement of the instance | `map(string)` | `{}` | no |
 | <a name="input_placement_group"></a> [placement\_group](#input\_placement\_group) | The name of the placement group into which you'll launch your instances, if any | `string` | `null` | no |
 | <a name="input_placement_group_az"></a> [placement\_group\_az](#input\_placement\_group\_az) | Availability zone where placement group is created (ex. `eu-west-1c`) | `string` | `null` | no |

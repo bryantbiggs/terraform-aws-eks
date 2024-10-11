@@ -43,6 +43,8 @@ locals {
 
   efa_instance_type = try(element(var.instance_types, 0), "")
   num_network_cards = try(data.aws_ec2_instance_type.this[0].maximum_network_cards, 0)
+  # Primary network interface must be EFA, remaining can be EFA or EFA-only
+  num_efa_interfaces = max(var.num_efa_interfaces, 1)
 
   efa_network_interfaces = [
     for i in range(local.num_network_cards) : {
@@ -50,7 +52,7 @@ locals {
       delete_on_termination       = true
       device_index                = i == 0 ? 0 : 1
       network_card_index          = i
-      interface_type              = "efa"
+      interface_type              = i < local.num_efa_interfaces ? "efa" : "efa-only"
     }
   ]
 
